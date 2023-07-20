@@ -18,30 +18,43 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- Creating a <h1> element -->
     <h1>Todo List: </h1>
+    <!-- Creating a <ul> element to hold all dynamically created <li> elements -->
     <ul class="todoItems">
+        <!-- Looping through all elements in an array, which contains all the objects/documents in the "todos" collection. This array was taken from server.js -->
+        <!-- This works like regular JS, so anything in the for loop will keep running until it evaluates to false. Then EJS will render and spit out the HTML file formed as a response -->
     <% for(let i=0; i < items.length; i++) {%>
+        <!-- Creating an <li> element for each object in array -->
         <li class="item">
+                <!-- check whether a item in the array has the "completed" property equal to "true" -->
             <% if(items[i].completed === true) {%>
+                <!-- Create a <span> element that contains the value of the current object "thing" property. It has a class of "completed" -->
                 <span class='completed'><%= items[i].thing %></span>
+                <!-- If the condition above is not met, the code in the else runs -->
             <% }else{ %>
+                <% if(items[i].completed === true) {%>
+                <!-- Create a <span> element that contains the value of the current object "thing" property -->
                 <span><%= items[i].thing %></span>
-            <% } %>    
+            <% } %>
+            <!-- Create a <span> element -->
             <span class='fa fa-trash'></span>
         </li>
     <% } %>
     </ul>
-
+    <!-- Creating a <h2> element, with some text + the "left" variable given by the server as its text content -->
     <h2>Left to do: <%= left %></h2>
-
+    <!-- Creating a <h2> element -->
     <h2>Add A Todo:</h2>
-
+    <!-- Creating a <form> element with an action attribute equal to the "/addTodo" route, and a method attribute of POST. When this form is submitted, it makes a POST request to the "/addTodo" route, and sends an object as data. Keys are the name values of input, and values are the values of the inputs when submitted -->
     <form action="/addTodo" method="POST">
+        <!-- Text input with a name of "todoItem" and a placeholder text -->
         <input type="text" placeholder="Thing To Do" name="todoItem">
+        <!-- Button that submits the form when clicked -->
         <input type="submit">
     </form>
-    
-
+    <!-- Script tag that links to the "main.js" client-side JavaScript file in the "js" folder -->
+    <!-- Although this folder is also in "public", it should not be listed because Express is already handling that for use with the built-in middleware "express.static('public')". It will know which file we're refering to automagically! -->
     <script src='js/main.js'></script>
 </body>
 </html>
